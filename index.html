@@ -81,7 +81,7 @@
       <div class="modal">
         <div class="modal-header">
           <h3>Task</h3>
-          <span class="close-button" onclick="closeModal()">&times;</span>
+         <span id="closeBtn" class="close-button">&times;</span>
         </div>
         <div class="modal-body">
           <label for="taskTitle">Title</label>
@@ -98,8 +98,8 @@
           </select>
         </div>
         <div class="modal-footer">
-          <button class="save-btn" onclick="saveTask()">Save Changes</button>
-          <button class="delete-btn" onclick="deleteTask()">Delete Task</button>
+          <button id="saveBtn" class="save-btn">Save Changes</button>
+          <button id="deleteBtn" class="delete-btn">Delete Task</button>
         </div>
       </div>
     </div>
