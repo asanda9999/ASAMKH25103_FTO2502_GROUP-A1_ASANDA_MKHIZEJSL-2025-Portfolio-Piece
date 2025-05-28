@@ -29,24 +29,27 @@ function hideStatus() {
 }
 
 async function loadTasks() {
-  showLoading();
-  try {
-    const tasks = await fetchTasksFromAPI();
-    initialTasks = tasks;
-    saveTasksToLocalStorage(initialTasks);
+  const storedTasks = getTasksFromLocalStorage();
+
+  if (storedTasks && storedTasks.length > 0) {
+    initialTasks = storedTasks;
     renderTasks();
     hideStatus();
-  } catch (e) {
-    console.error("API fetch error:", e);
-    initialTasks = getTasksFromLocalStorage();
-    if (initialTasks.length > 0) {
+  } else {
+    showLoading();
+    try {
+      const tasks = await fetchTasksFromAPI();
+      initialTasks = tasks;
+      saveTasksToLocalStorage(initialTasks);
       renderTasks();
       hideStatus();
-    } else {
+    } catch (e) {
+      console.error("API fetch error:", e);
       showError();
     }
   }
 }
+
 
 function renderTasks() {
   const columns = {
@@ -54,6 +57,7 @@ function renderTasks() {
     doing: document.querySelector('#doing-column .tasks'),
     done: document.querySelector('#done-column .tasks'),
   };
+  
 
   Object.values(columns).forEach(col => col.innerHTML = '');
 
@@ -65,7 +69,17 @@ function renderTasks() {
     taskElement.addEventListener('click', () => openModal(task.id));
     columns[task.status]?.appendChild(taskElement);
   });
+  updateColumnHeaders();
 }
+function updateColumnHeaders() {
+  const statusCounts = { todo: 0, doing: 0, done: 0 };
+  initialTasks.forEach(task => statusCounts[task.status]++);
+
+  document.querySelector('#todo-column .column-header h4').textContent = `TO DO (${statusCounts.todo})`;
+  document.querySelector('#doing-column .column-header h4').textContent = `DOING (${statusCounts.doing})`;
+  document.querySelector('#done-column .column-header h4').textContent = `DONE (${statusCounts.done})`;
+}
+
 
 function openModal(taskId) {
   currentTaskId = taskId;
