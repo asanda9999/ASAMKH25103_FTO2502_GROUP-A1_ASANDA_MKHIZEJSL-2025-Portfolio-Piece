@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,7 +7,6 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="./styles.css" />
     <link
       rel="icon"
@@ -19,10 +19,12 @@
   </head>
 
   <body>
+    <!-- Loading message shown while tasks are loading -->
     <div id="loading-box" class="loading-box">
-  <p>Loading tasks, please wait...</p>
-</div>
-    <!-- Navigation Sidebar: Contains the logo, navigation links for boards, and theme toggle. -->
+      <p>Loading tasks, please wait...</p>
+    </div>
+
+    <!-- Sidebar Navigation -->
     <nav class="side-bar" id="side-bar-div">
       <div id="side-logo-div">
         <img id="logo" src="./assets/logo-light.svg" alt="logo-light" />
@@ -32,23 +34,26 @@
         <h4 id="headline-sidepanel">ALL BOARDS (1)</h4>
         <button class="board-btn">Launch Career</button>
       </div>
-  <div class="sidebar-footer">
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-      <span>☀️</span>
-      <label class="switch">
-        <input type="checkbox" id="theme-toggle-checkbox" />
-        <span class="slider round"></span>
-      </label>
-      <span>🌑</span>
-    </div>
 
-    <!-- Hide Sidebar Button -->
-    <button id="hide-sidebar-btn" aria-label="Hide Sidebar">🚫 Hide Sidebar</button>
-  </div>
+      <div class="sidebar-footer">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle">
+          <span>☀️</span>
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle-checkbox" />
+            <span class="slider round"></span>
+          </label>
+          <span>🌑</span>
+        </div>
+
+        <!-- Hide Sidebar Button -->
+        <button id="hide-sidebar-btn" aria-label="Hide Sidebar">
+          🚫 Hide Sidebar
+        </button>
+      </div>
     </nav>
 
-    <!-- Main Layout: Header with board title, add task button, and main content area for task columns. -->
+    <!-- Main Content Area -->
     <div id="layout">
       <header id="header" class="sticky-header">
         <div class="header-name-div">
@@ -62,44 +67,44 @@
             Launch Career
           </h2>
         </div>
-         <button id="add-new-task-btn" class="primary-btn">
+        <button id="add-new-task-btn" class="primary-btn">
           + Add New Task
         </button>
       </header>
 
       <div class="container">
         <main class="card-column-main">
-          <!-- Task Columns: Display tasks grouped by status (TODO, DOING, DONE). -->
+          <!-- TODO Column -->
           <div class="column-div" data-status="todo">
             <div id="todo-head-div" class="column-head-div">
               <span class="dot" id="todo-dot"></span>
-           <h4 id="todoText" class="columnHeader"></h4>
+              <h4 id="todoText" class="columnHeader"></h4>
             </div>
-            <!-- Tasks container for TODO -->
             <div class="tasks-container"></div>
           </div>
+
           <!-- DOING Column -->
           <div class="column-div" data-status="doing">
             <div id="doing-head-div" class="column-head-div">
               <span class="dot" id="doing-dot"></span>
-            <h4 id="doingText" class="columnHeader"></h4>
+              <h4 id="doingText" class="columnHeader"></h4>
             </div>
-            <!-- Tasks container for DOING -->
             <div class="tasks-container"></div>
           </div>
+
           <!-- DONE Column -->
           <div class="column-div" data-status="done">
             <div id="done-head-div" class="column-head-div">
               <span class="dot" id="done-dot"></span>
               <h4 id="doneText" class="columnHeader"></h4>
             </div>
-            <!-- Tasks container for DONE -->
             <div class="tasks-container"></div>
           </div>
         </main>
       </div>
     </div>
-    <!-- Modal: Displays each tasks details when the task is clicked -->
+
+    <!-- Modal for Task Details -->
     <dialog id="task-modal">
       <form method="dialog" id="task-form">
         <div class="modal-header">
@@ -121,17 +126,18 @@
           <option value="doing">doing</option>
           <option value="done">done</option>
         </select>
-          <div class="modal-footer">
-          <div class="modal-footer">
-  <button id="saveBtn" class="save-btn">Save Changes</button>
-  <button id="createBtn" class="save-btn" style="display: none;">Create Task</button>
-  <button id="deleteBtn" class="delete-btn">Delete Task</button>
-</div>
-        </div>
 
+        <div class="modal-footer">
+          <button id="saveBtn" class="save-btn">Save Changes</button>
+          <button id="createBtn" class="save-btn" style="display: none;">
+            Create Task
+          </button>
+          <button id="deleteBtn" class="delete-btn">Delete Task</button>
+        </div>
       </form>
     </dialog>
+
+    <!-- Show Sidebar Button for Mobile -->
     <button id="show-sidebar-btn" aria-label="Show Sidebar">👀</button>
-    
   </body>
 </html>
