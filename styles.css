@@ -668,6 +668,15 @@ form select {
   .header-board-name{
     display:none;
   }
+
+  .save-btn{
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .delete-btn{
+    width: 100%;
+  }
   
 }
 
