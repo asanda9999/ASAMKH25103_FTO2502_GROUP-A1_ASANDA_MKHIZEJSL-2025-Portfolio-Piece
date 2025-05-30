@@ -3,7 +3,7 @@ export function setupThemeToggle() {
   const checkbox = document.getElementById("theme-toggle-checkbox");
   const body = document.body;
 
-  // Retrieve saved theme from localStorage (persists user preference)
+  // Retrieve saved theme from localStorage 
   const savedTheme = localStorage.getItem("theme");
 
   // If the saved theme is dark, apply dark mode and set the toggle

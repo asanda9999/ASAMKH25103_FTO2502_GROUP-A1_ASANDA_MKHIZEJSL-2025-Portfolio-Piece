@@ -19,38 +19,36 @@ body.dark {
   --primary-font-color: #ffffff;
   --secondary-font-color: #a3a3a3;
   --primary-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  --sidebar: Dark Grey;
 }
 /* Dark mode styles for modal */
 body.dark #task-modal {
-  background-color: #2b2c37; /* Dark background */
-  color: #ffffff; /* Light text */
+  background-color:#20212C;
+ /* Dark background */
+  color: #ffffff; 
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
   border: none;
 }
 
 body.dark #task-modal form label {
-  color: #a3a3a3; /* Lighter label text */
+  color: #a3a3a3; 
 }
 
 body.dark #task-modal input,
 body.dark #task-modal textarea,
 body.dark #task-modal select {
-  background-color: #20212c; /* Darker input backgrounds */
-  color: #fff; /* White text */
-  border: 1px solid #635fc7; /* Purple border */
-}
-
-body.dark #task-modal select {
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="%23635fc7" stroke-width="3" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>');
+  background-color: #20212c;
+  color: #fff; 
+  border: 1px solid #635fc7; 
 }
 
 body.dark .save-btn {
-  background-color: #8a86ff; /* lighter purple on dark */
+  background-color: #8a86ff; 
   color: white;
 }
 
 body.dark .delete-btn {
-  background-color: #ff5c5c;
+  background-color: #ea5555;
   color: white;
 }
 
@@ -67,7 +65,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background-color: var(--secondary-color);
-  font-size: 1rem; /* Base font size for rem scaling */
+  font-size: 1rem; 
 }
 
 /* ================
@@ -77,7 +75,7 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--primary-color);
-  border-right: 1px solid #e4ebfa; /* Light divider */
+  border-right: 1px solid #e4ebfa; 
   width: var(--sidebar-width);
   height: 100vh;
 }
@@ -89,7 +87,7 @@ body {
 }
 
 #logo {
-  width: 100%; /* Make logo responsive within container */
+  width: 100%;
 }
 
 .boards-nav-links-div {
@@ -116,20 +114,20 @@ h4 {
   background-color: #635fc7;
   color: #fff;
   border: none;
-  border-radius: 0 100px 100px 0; /* Pill shape only on right side */
+  border-radius: 0 100px 100px 0;
   height: 48px;
   width: 276px;
   padding: 28px 12px 28px 50px;
   font-size: 0.9375rem;
   font-weight: bold;
   cursor: pointer;
-  overflow: hidden; /* Prevents overflowed text/icons from showing */
+  overflow: hidden; 
 }
 .sidebar-footer {
   margin-top: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
   gap: 16px;
   border-top: 1px solid #e4ebfa;
@@ -146,7 +144,7 @@ top: 784px;
 left: 16px;
 border-radius: 6px;
  background: #F4F7FD;
-;
+ justify-content: flex-start;
 }
 
 .switch {
@@ -175,7 +173,7 @@ border-radius: 6px;
 }
 
 body.dark .slider {
-  background-color: #635fc7; /* your purple */
+  background-color: #635fc7;
 }
 
 .slider::before {
@@ -216,14 +214,13 @@ input:checked + .slider::before {
   cursor: pointer;
   transition: color 0.3s ease;
   width: 276px;
-height: 49.745452880859375;
+height: 49.745452880859375px;
 top: 846px;
 border-top-right-radius: 100px;
 border-bottom-right-radius: 100px;
 background: #F4F7FD;
-margin-right: 50px;
-
-  
+margin-right: 200px;
+ justify-content: flex-start;
 }
 
 #hide-sidebar-btn:hover {
@@ -259,7 +256,7 @@ body.dark .theme-toggle {
 
 body.dark #hide-sidebar-btn {
   background: #635fc7;
-  color: white; /* Optional: make text/icon visible on purple */
+  color: white;
 }
 
 /* ===============
@@ -375,7 +372,7 @@ header {
   color: var(--primary-font-color);
   border-radius: 12px;
   box-shadow: var(--primary-box-shadow);
-  cursor: pointer; /* Indicate it's clickable */
+  cursor: pointer; 
   margin-bottom: 20px;
   font-size: 0.9375rem;
   font-weight: bold;
@@ -418,7 +415,7 @@ dialog {
   background-color: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   overflow-x: hidden;
-  /*font-family: "Plus Jakarta Sans", sans-serif;*/
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Header */
@@ -440,9 +437,7 @@ dialog {
   font-size: 2.5rem;
   line-height: 1;
   cursor: pointer;
-  color: #ea5555;
-  transition: transform 0.2s ease-in-out, font-weight 0.2s ease-in-out;
-  transition-delay: 0.1s; /* Delay before scaling */
+  color: red;
 }
 
 .close-btn:hover {
