@@ -417,6 +417,7 @@ dialog {
   padding: 24px;
   background-color: #fff;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
   /*font-family: "Plus Jakarta Sans", sans-serif;*/
 }
 
@@ -493,6 +494,8 @@ form select {
   border-radius: 20px;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 1em;
+  margin-right: 8em;
 }
 .delete-btn {
   background-color: #ea5555;
@@ -529,7 +532,28 @@ form select {
   border-radius: 20px;
   font-weight: 600;
   cursor: pointer;
+  width: 100%;
 }
+
+.loading-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  border: 2px solid #333;
+  padding: 20px 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  z-index: 1000;
+  display: none;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 250px;
+}
+
 
 
 
