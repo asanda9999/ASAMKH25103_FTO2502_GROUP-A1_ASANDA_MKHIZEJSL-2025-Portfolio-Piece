@@ -1,5 +1,5 @@
 // taskModal.js
-import { getTasks, setTasks } from "./taskData.js";
+import { getTasks, setTasks, updateTaskById, deleteTaskById } from "./taskData.js";
 import { clearExistingTasks, renderTasks } from "./taskRender.js";
 
 let currentTaskId = null;
@@ -58,67 +58,109 @@ export function setupModalHandlers() {
   document.getElementById("close-modal-btn").addEventListener("click", () => modal.close());
 
   // Save updated task data
-  saveBtn.addEventListener("click", () => {
+  saveBtn.addEventListener("click", async () => {
     if (!titleInput.value.trim()) {
       alert("Task title cannot be empty!");
       return;
     }
 
-    const tasks = getTasksSync();
     if (currentTaskId !== null) {
-      const task = tasks.find(t => t.id === currentTaskId);
-      if (task) {
-        // Update task fields
-        task.title = titleInput.value;
-        task.description = descInput.value;
-        task.status = statusSelect.value;
-      }
+      const updatedTask = {
+        id: currentTaskId,
+        title: titleInput.value,
+        description: descInput.value,
+        status: statusSelect.value,
+        board: "Launch Career"
+      };
 
-      // Save updated task list and refresh UI
-      setTasks(tasks);
-      clearExistingTasks();
-      renderTasks(tasks);
-      modal.close();
+      // Update task via API
+      const result = await updateTaskById(currentTaskId, updatedTask);
+      
+      if (result.success) {
+        // Update the UI immediately with the new data
+        const currentTasks = await getTasks();
+        const updatedTasks = currentTasks.map(task => 
+          task.id === currentTaskId ? updatedTask : task
+        );
+        clearExistingTasks();
+        renderTasks(updatedTasks);
+        modal.close();
+        
+        // Store the updated task locally to prevent reverting
+        localStorage.setItem('lastUpdatedTask', JSON.stringify({
+          id: currentTaskId,
+          status: updatedTask.status,
+          timestamp: Date.now()
+        }));
+        
+        // Optional: Refresh from API after a longer delay, but don't override if our update is newer
+        setTimeout(async () => {
+          try {
+            const lastUpdate = JSON.parse(localStorage.getItem('lastUpdatedTask') || '{}');
+            const timeSinceUpdate = Date.now() - (lastUpdate.timestamp || 0);
+            
+            // Only refresh if it's been more than 5 seconds since our update
+            if (timeSinceUpdate > 5000) {
+              const freshTasks = await getTasks();
+              clearExistingTasks();
+              renderTasks(freshTasks);
+            }
+          } catch (error) {
+            console.error("Error refreshing tasks after update:", error);
+          }
+        }, 5000);
+      } else {
+        alert("Error updating task: " + result.error);
+      }
     }
   });
 
   // Create and add a new task
-  createBtn.addEventListener("click", () => {
+  createBtn.addEventListener("click", async () => {
     if (!titleInput.value.trim()) {
       alert("Task title cannot be empty!");
       return;
     }
 
-    const tasks = getTasksSync();
-    tasks.push({
+    const newTask = {
       id: Date.now(), // Unique ID using timestamp
       title: titleInput.value,
       description: descInput.value,
       status: statusSelect.value,
-    });
+      board: "Launch Career"
+    };
 
-    // Save and display updated task list
-    setTasks(tasks);
-    clearExistingTasks();
-    renderTasks(tasks);
-    modal.close();
-  });
+    // Get current tasks and add new one
+    const tasks = await getTasks();
+    tasks.push(newTask);
 
-  // Delete the currently edited task
-  deleteBtn.addEventListener("click", () => {
-    if (currentTaskId !== null) {
-      const tasks = getTasksSync().filter(t => t.id !== currentTaskId);
-
-      // Save filtered list and refresh UI
-      setTasks(tasks);
+    // Save updated task list via API
+    const result = await setTasks(tasks);
+    
+    if (result.success) {
       clearExistingTasks();
       renderTasks(tasks);
       modal.close();
+    } else {
+      alert("Error creating task: " + result.error);
     }
   });
-}
 
-// Synchronous helper to fetch tasks directly from localStorage
-function getTasksSync() {
-  return JSON.parse(localStorage.getItem("tasks")) || [];
+  // Delete the currently edited task
+  deleteBtn.addEventListener("click", async () => {
+    if (currentTaskId !== null) {
+      // Delete task via API
+      const result = await deleteTaskById(currentTaskId);
+      
+      if (result.success) {
+        // Refresh tasks from API and update UI
+        const tasks = await getTasks();
+        clearExistingTasks();
+        renderTasks(tasks);
+        modal.close();
+      } else {
+        alert("Error deleting task: " + result.error);
+      }
+    }
+  });
 }

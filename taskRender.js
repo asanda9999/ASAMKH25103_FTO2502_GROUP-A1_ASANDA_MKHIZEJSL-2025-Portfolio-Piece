@@ -50,10 +50,19 @@ function updateColumnCounts(tasks) {
 
 // Renders all tasks to the appropriate status columns
 export function renderTasks(taskArray) {
+  console.log('Rendering tasks:', taskArray);
+  
+  // Clear all containers first
+  clearExistingTasks();
+  
   taskArray.forEach(task => {
     const container = getTaskContainerByStatus(task.status);
     if (container) {
-      container.appendChild(createTaskElement(task));
+      const taskElement = createTaskElement(task);
+      container.appendChild(taskElement);
+      console.log(`Task "${task.title}" placed in ${task.status} column`);
+    } else {
+      console.warn(`No container found for status: ${task.status}`);
     }
   });
 
